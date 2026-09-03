@@ -17,7 +17,7 @@ export default defineBackground({
         browser.contextMenus.create({
           id: 'level0',
           title: '曼巴out',
-          contexts: ['all']
+          contexts: ['selection']
         })
         browser.contextMenus.create({
           parentId: 'level0',
@@ -26,7 +26,6 @@ export default defineBackground({
           contexts: ['selection']
         })
         browser.contextMenus.create({
-          parentId: 'level0',
           id: "copy-bv-number",
           title: "复制当前视频 BV号",
           // 只在页面上下文出现；限定匹配B站视频页面

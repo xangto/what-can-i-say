@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type {popupFrom} from "@/types/types.ts";
-import {popupFormStorage} from "../utils/storage";
+import {autoWebFullscreenStorage, popupFormStorage} from "../utils/storage";
 
 const fontFamilyList = [
   {label: '微软雅黑', value: `Microsoft YaHei`},
@@ -14,18 +14,26 @@ const fontFamilyList = [
 // 绑定表单数据
 const form = ref<popupFrom>({
   fontFamily: 'Microsoft YaHei',
-  autoWebFullScreen: 0 // 自动网页全屏开关
 })
+
+const autoWebFullScreen = ref(0) // 自动网页全屏开关
 
 // 页面挂载读取旧配置
 onMounted(() => {
   popupFormStorage.getValue().then((res) => {
     form.value = {...form.value, ...res}
   })
+  autoWebFullscreenStorage.getValue().then((res) => {
+    autoWebFullScreen.value = res
+  })
 })
 
 const handleSave = async () => {
   popupFormStorage.setValue(form.value)
+}
+
+const handleSave2 = async () => {
+  autoWebFullscreenStorage.setValue(autoWebFullScreen.value)
 }
 
 </script>
@@ -44,7 +52,7 @@ const handleSave = async () => {
       <div class="form-item">
         <div class="label">网页全屏：</div>
         <div title="点击页面即可网页全屏">
-          <el-switch v-model="form.autoWebFullScreen" :active-value="1" :inactive-value="0" @change="handleSave"/>
+          <el-switch v-model="autoWebFullScreen" :active-value="1" :inactive-value="0" @change="handleSave2"/>
         </div>
       </div>
     </div>
