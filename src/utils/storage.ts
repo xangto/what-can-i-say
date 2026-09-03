@@ -11,3 +11,7 @@ export const popupFormStorage = storage.defineItem<popupFrom>('local:bilibili_st
 export const autoWebFullscreenStorage = storage.defineItem<number>('local:bilibili_webFullscreen', {
   fallback: 0
 })
+
+export const searchHistoryStorage = storage.defineItem<number>('local:bilibili_searchHistory', {
+  fallback: 1
+})

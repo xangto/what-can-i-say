@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import type {popupFrom} from "@/types/types.ts";
+import {searchHistoryStorage} from "../../utils/storage";
 
 const fontFamilyList = [
   {label: '微软雅黑', value: `Microsoft YaHei`},
@@ -18,6 +19,7 @@ const form = ref<popupFrom>({
 })
 
 const autoWebFullScreen = ref(0) // 自动网页全屏开关
+const searchHistory = ref(1) // 搜索历史是否显示
 
 // 页面挂载读取旧配置
 onMounted(() => {
@@ -27,6 +29,9 @@ onMounted(() => {
   autoWebFullscreenStorage.getValue().then((res) => {
     autoWebFullScreen.value = res
   })
+  searchHistoryStorage.getValue().then((res) => {
+    searchHistory.value = res
+  })
 })
 
 const handleSave = async () => {
@@ -35,6 +40,10 @@ const handleSave = async () => {
 
 const handleSave2 = async () => {
   autoWebFullscreenStorage.setValue(autoWebFullScreen.value)
+}
+
+const handleSave3 = async () => {
+  searchHistoryStorage.setValue(searchHistory.value)
 }
 
 const handleMusic = () => {
@@ -64,6 +73,12 @@ const handleMusic = () => {
         <div class="label">网页全屏：</div>
         <div title="点击页面即可网页全屏">
           <el-switch v-model="autoWebFullScreen" :active-value="1" :inactive-value="0" @change="handleSave2"/>
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="label">搜索历史：</div>
+        <div title="切换显示搜索历史">
+          <el-switch v-model="searchHistory" :active-value="1" :inactive-value="0" @change="handleSave3"/>
         </div>
       </div>
 

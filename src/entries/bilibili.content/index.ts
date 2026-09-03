@@ -13,7 +13,8 @@ export default defineContentScript({
 
 async function injectCustomStyle() {
   // 删除旧的自定义style标签，避免重复
-  const oldStyle = document.getElementById('ext‑bilibili‑custom‑style')
+  const styleId = 'ext‑bilibili‑custom‑style'
+  const oldStyle = document.getElementById(styleId)
   if (oldStyle) oldStyle.remove()
 
   // 读取存储的配置
@@ -39,7 +40,7 @@ async function injectCustomStyle() {
   `
   }
   const styleEl = document.createElement('style')
-  styleEl.id = 'ext‑bilibili‑custom‑style'
+  styleEl.id = styleId
   styleEl.textContent = (fontFamilyCSS ? fontFamilyCSS : '') +
     (upNameCSS ? upNameCSS : '')
   document.head.appendChild(styleEl)
