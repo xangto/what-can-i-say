@@ -24,6 +24,13 @@ export default defineBackground({
           contexts: ['selection']
         })
         browser.contextMenus.create({
+          parentId: 'level0',
+          id: 'bilibili-search',
+          title: '  Bilibili搜索',
+          contexts: ['selection']
+        })
+
+        browser.contextMenus.create({
           id: "copy-bv-number",
           title: "复制当前视频 BV号",
           // 只在页面上下文出现；限定匹配B站视频页面
@@ -38,6 +45,10 @@ export default defineBackground({
       if (info.menuItemId === "youdao-translate" && info.selectionText) {
         const q = encodeURIComponent(info.selectionText)
         const targetUrl = `https://dict.youdao.com/search?q=${q}`
+        browser.tabs.create({url: targetUrl})
+      } else if (info.menuItemId === "bilibili-search" && info.selectionText) {
+        const q = encodeURIComponent(info.selectionText)
+        const targetUrl = `https://search.bilibili.com/all?keyword=${q}`
         browser.tabs.create({url: targetUrl})
       } else if (info.menuItemId === "copy-bv-number") {
         if (!tab?.id) return
