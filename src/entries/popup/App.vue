@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import type {popupFrom} from "@/types/types.ts";
-import {autoWebFullscreenStorage, popupFormStorage} from "../utils/storage";
 
 const fontFamilyList = [
   {label: '微软雅黑', value: `Microsoft YaHei`},

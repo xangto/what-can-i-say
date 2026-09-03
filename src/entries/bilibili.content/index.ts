@@ -1,7 +1,4 @@
-import {defineContentScript} from "#imports";
 import './bilibili-custom.css'
-import type {popupFrom} from "@/types/types.ts";
-import {popupFormStorage} from "../utils/storage";
 
 export default defineContentScript({
   // https://www.bilibili.com/

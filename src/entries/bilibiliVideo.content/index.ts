@@ -1,9 +1,3 @@
-import {defineContentScript} from "#imports";
-import type {popupFrom} from "@/types/types.ts";
-import {autoWebFullscreenStorage} from "../utils/storage";
-import showToast from "../utils/showToast";
-import waitElement from "../utils/waitElement";
-
 export default defineContentScript({
   matches: ['*://*.bilibili.com/video/*'],
   main() {

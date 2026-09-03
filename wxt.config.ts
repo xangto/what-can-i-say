@@ -20,7 +20,6 @@ export default defineConfig({
       })
     ]
   }),
-  imports: false,
   manifestVersion: 3,
   srcDir: 'src',
   entrypointsDir: 'entries',

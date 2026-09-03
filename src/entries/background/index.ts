@@ -1,5 +1,3 @@
-import {browser, defineBackground} from "#imports";
-
 export default defineBackground({
   main() {
     // 插件安装/更新时
