@@ -1,5 +1,3 @@
-import './bilibili-custom.css'
-
 export default defineContentScript({
   // https://www.bilibili.com/
   matches: ['*://*.bilibili.com/*'],
@@ -23,13 +21,26 @@ async function injectCustomStyle() {
   if (!storageData) return
 
   // 构建CSS，可自行调整选择器，这里设置全局body字体样式
-  const cssText = `
+  let fontFamilyCSS = ''
+  if (storageData.fontFamily) {
+    fontFamilyCSS = `
     body {
       font-family: ${storageData.fontFamily} !important;
     }
   `
+  }
+  let upNameCSS = ''
+  if (storageData.upNameColor) {
+    upNameCSS = `
+    .bili-video-card__info--owner .bili-video-card__info--author,
+    .upname .name {
+        color: ${storageData.upNameColor} !important;
+    }
+  `
+  }
   const styleEl = document.createElement('style')
   styleEl.id = 'ext‑bilibili‑custom‑style'
-  styleEl.textContent = cssText
+  styleEl.textContent = (fontFamilyCSS ? fontFamilyCSS : '') +
+    (upNameCSS ? upNameCSS : '')
   document.head.appendChild(styleEl)
 }

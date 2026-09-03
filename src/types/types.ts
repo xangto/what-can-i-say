@@ -1,4 +1,4 @@
 export interface popupFrom {
-  fontFamily: string
-  autoWebFullScreen: number
+  fontFamily: string | null
+  upNameColor: string | null
 }

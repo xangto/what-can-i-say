@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import type {popupFrom} from "@/types/types.ts";
 
 const fontFamilyList = [
@@ -12,7 +13,8 @@ const fontFamilyList = [
 // 	{"fontFamily":"KaiTi","autoWebFullScreen":1}
 // 绑定表单数据
 const form = ref<popupFrom>({
-  fontFamily: 'Microsoft YaHei',
+  fontFamily: null,
+  upNameColor: null
 })
 
 const autoWebFullScreen = ref(0) // 自动网页全屏开关
@@ -38,14 +40,20 @@ const handleSave2 = async () => {
 </script>
 
 <template>
-  <el-config-provider size="default" :zIndex="3000">
+  <el-config-provider size="default" :zIndex="3000" :locale="zhCn">
     <div class="popup-container">
       <div class="form-item">
         <div class="label">字体：</div>
         <div>
-          <el-select v-model="form.fontFamily" @change="handleSave">
+          <el-select v-model="form.fontFamily" @change="handleSave" clearable>
             <el-option v-for="item in fontFamilyList" :key="item.value" :label="item.label" :value="item.value"/>
           </el-select>
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="label">昵称颜色：</div>
+        <div>
+          <el-color-picker v-model="form.upNameColor" @change="handleSave"/>
         </div>
       </div>
       <div class="form-item">
