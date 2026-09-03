@@ -37,6 +37,10 @@ const handleSave2 = async () => {
   autoWebFullscreenStorage.setValue(autoWebFullScreen.value)
 }
 
+const handleMusic = () => {
+  sendMessage('egg')
+}
+
 </script>
 
 <template>
@@ -62,12 +66,15 @@ const handleSave2 = async () => {
           <el-switch v-model="autoWebFullScreen" :active-value="1" :inactive-value="0" @change="handleSave2"/>
         </div>
       </div>
+
+      <div class="easter-egg" title="这都被你发现了" @click.stop="handleMusic"></div>
     </div>
   </el-config-provider>
 </template>
 
 <style scoped>
 .popup-container {
+  position: relative;
   width: 320px;
   height: 320px;
   padding: 14px;
@@ -93,5 +100,14 @@ const handleSave2 = async () => {
   div:nth-child(2) {
     flex: 1;
   }
+}
+
+.easter-egg {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  width: 14px;
+  height: 14px;
 }
 </style>

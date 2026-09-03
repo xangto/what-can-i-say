@@ -42,20 +42,17 @@ export default defineContentScript({
     // 初次执行
     watchPlayer();
 
-    // 监听事件
-    browser.runtime.onMessage.addListener((msg) => {
-      if (msg?.action === "copyBv") {
-        const bv = getBvId()
-        if (!bv) {
-          showToast('未获取到BV号')
-          return
-        }
-        try {
-          navigator.clipboard.writeText(bv)
-          showToast('复制成功')
-        } catch (err) {
-          console.error(err)
-        }
+    onMessage("copyBv", res => {
+      const bv = getBvId()
+      if (!bv) {
+        showToast('未获取到BV号')
+        return
+      }
+      try {
+        navigator.clipboard.writeText(bv)
+        showToast('复制成功')
+      } catch (err) {
+        console.error(err)
       }
     })
 

@@ -14,7 +14,7 @@ export default defineBackground({
         // 创建菜单
         browser.contextMenus.create({
           id: 'level0',
-          title: '曼巴out',
+          title: 'what-can-i-say',
           contexts: ['selection']
         })
         browser.contextMenus.create({
@@ -54,11 +54,14 @@ export default defineBackground({
         if (!tab?.id) return
 
         // 向content script发送消息，让网页脚本执行复制
-        browser.tabs.sendMessage(tab.id, {
-          action: "copyBv"
-        })
+        sendMessage("copyBv", undefined, tab.id)
       }
-
     })
+    // 彩蛋事件
+    onMessage('egg', () => {
+      const targetUrl = 'https://www.bilibili.com/video/BV1qU4y1F73A'
+      browser.tabs.create({url: targetUrl})
+    })
+
   }
 });
