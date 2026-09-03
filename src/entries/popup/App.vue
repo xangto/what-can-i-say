@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import {storage} from "#imports";
+import type {popupFrom} from "@/types/types.ts";
+import {popupFormStorage} from "../utils/storage";
 
 const fontFamilyList = [
   {label: '微软雅黑', value: `Microsoft YaHei`},
@@ -9,23 +10,22 @@ const fontFamilyList = [
   {label: '仿宋', value: `FangSong`},
   {label: '微软正黑体', value: `Microsoft JhengHei`},
 ]
+// 	{"fontFamily":"KaiTi","autoWebFullScreen":1}
 // 绑定表单数据
-const form = ref({
+const form = ref<popupFrom>({
   fontFamily: 'Microsoft YaHei',
+  autoWebFullScreen: 0 // 自动网页全屏开关
 })
 
-storage.getItem('local:bilibili_style').then(res => {
-  if (res) {
-    try {
-      const value = JSON.parse(res)
-      form.value = value
-    } catch (err) {
-    }
-  }
+// 页面挂载读取旧配置
+onMounted(() => {
+  popupFormStorage.getValue().then((res) => {
+    form.value = {...form.value, ...res}
+  })
 })
 
-const handleSave = () => {
-  storage.setItem('local:bilibili_style', JSON.stringify(form.value))
+const handleSave = async () => {
+  popupFormStorage.setValue(form.value)
 }
 
 </script>
@@ -35,9 +35,17 @@ const handleSave = () => {
     <div class="popup-container">
       <div class="form-item">
         <div class="label">字体：</div>
-        <el-select v-model="form.fontFamily" @change="handleSave">
-          <el-option v-for="item in fontFamilyList" :key="item.value" :label="item.label" :value="item.value"/>
-        </el-select>
+        <div>
+          <el-select v-model="form.fontFamily" @change="handleSave">
+            <el-option v-for="item in fontFamilyList" :key="item.value" :label="item.label" :value="item.value"/>
+          </el-select>
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="label">网页全屏：</div>
+        <div title="点击页面即可网页全屏">
+          <el-switch v-model="form.autoWebFullScreen" :active-value="1" :inactive-value="0" @change="handleSave"/>
+        </div>
       </div>
     </div>
   </el-config-provider>
@@ -48,19 +56,27 @@ const handleSave = () => {
   width: 320px;
   height: 320px;
   padding: 14px;
-  font-size: 16px;
+  font-size: 14px;
   box-sizing: border-box;
 }
 
 .form-item {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
+
+  &:nth-child(n+2) {
+    margin-top: 8px;
+  }
 
   .label {
     margin-right: 10px;
-    width: 60px;
+    width: 70px;
     text-align: right;
+  }
+
+  div:nth-child(2) {
+    flex: 1;
   }
 }
 </style>

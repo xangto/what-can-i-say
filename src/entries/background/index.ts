@@ -2,7 +2,6 @@ import {browser, defineBackground} from "#imports";
 
 export default defineBackground({
   main() {
-    console.log('Hello background! man~~~', {id: browser.runtime.id});
     // 插件安装/更新时
     browser.runtime.onInstalled.addListener(() => {
       // 先清除所有旧菜单，防止多次唤醒重复创建报错
