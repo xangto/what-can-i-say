@@ -1,6 +1,7 @@
 import {defineContentScript} from "#imports";
 import type {popupFrom} from "@/types/types.ts";
 import {popupFormStorage} from "../utils/storage";
+import {ElMessage} from "element-plus";
 
 export default defineContentScript({
   matches: ['*://*.bilibili.com/video/*'],
@@ -65,7 +66,32 @@ export default defineContentScript({
       destroyObserver();
     });
 
+    // 监听事件
+    browser.runtime.onMessage.addListener((msg) => {
+      if (msg?.action === "copyBv") {
+        const bv = getBvId()
+        if (!bv) {
+          ElMessage.error('未获取到BV号')
+          return
+        }
+        try {
+          navigator.clipboard.writeText(bv)
+          ElMessage.success('复制成功')
+        } catch (err) {
+          console.error(err)
+        }
+      }
+    })
+
   }
 })
+
+// 获取BV号
+function getBvId(): string {
+  // URL正则降级
+  const bvMatch = location.href.match(/\/video\/(BV[\w]+)/i)
+  const avMatch = location.href.match(/\/video\/(av[\w]+)/i)
+  return bvMatch ? bvMatch[1] : (avMatch ? avMatch[1] : '')
+}
 
 
