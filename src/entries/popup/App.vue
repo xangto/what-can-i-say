@@ -90,8 +90,8 @@ const handleMusic = () => {
 <style scoped>
 .popup-container {
   position: relative;
-  width: 320px;
-  height: 320px;
+  width: 340px;
+  height: 340px;
   padding: 14px;
   font-size: 14px;
   box-sizing: border-box;
