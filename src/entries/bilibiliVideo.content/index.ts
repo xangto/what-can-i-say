@@ -27,17 +27,20 @@ export default defineContentScript({
         }
         // 已经网页全屏 || 已经触发过，直接跳过
         if (isWebFull || triggered) return;
-
+        webFullBtn.click();
+        triggered = true;
         // ⚠️浏览器安全限制：必须等待用户一次点击，不能脚本自动click
-        document.body.addEventListener(
-          'click',
-          function onceClick(e) {
-            webFullBtn.click();
-            triggered = true;
-            document.body.removeEventListener('click', onceClick);
-          },
-          {once: true}
-        );
+        // document.body.addEventListener(
+        //   'click',
+        //   function onceClick(e) {
+        //     const el = e.target as HTMLElement;
+        //     console.log(el)
+        //     webFullBtn.click();
+        //     triggered = true;
+        //     document.body.removeEventListener('click', onceClick);
+        //   },
+        //   {once: true}
+        // );
       });
 
     }
