@@ -17,7 +17,7 @@ function showToast(text: string, duration = 1500) {
     });
     document.body.appendChild(toast);
   }
-  toast.textContent = text;
+  toast.innerHTML = text;
   toast.style.display = "block";
   setTimeout(() => {
     toast.style.display = "none";
