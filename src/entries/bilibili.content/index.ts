@@ -12,6 +12,13 @@ export default defineContentScript({
       injectHomeStyle()
     })
 
+    // waitElement('.feed-roll-btn .roll-btn').then((el) => {
+    //   el.click()
+    //   el.addEventListener('click', (e) => {
+    //     console.log('换一批')
+    //   })
+    // })
+
   },
 });
 

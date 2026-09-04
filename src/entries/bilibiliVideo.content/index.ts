@@ -60,11 +60,11 @@ export default defineContentScript({
 })
 
 // 获取BV号
-function getBvId(): string {
+function getBvId(): string | undefined {
   // URL正则降级
   const bvMatch = location.href.match(/\/video\/(BV[\w]+)/i)
   const avMatch = location.href.match(/\/video\/(av[\w]+)/i)
-  return bvMatch ? bvMatch[1] : (avMatch ? avMatch[1] : '')
+  return bvMatch ? bvMatch?.[1] : (avMatch ? avMatch?.[1] : '')
 }
 
 

@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import type {popupFrom} from "@/types/types.ts";
-import {searchHistoryStorage} from "../../utils/storage";
 
 const fontFamilyList = [
   {label: '微软雅黑', value: `Microsoft YaHei`},

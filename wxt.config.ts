@@ -24,6 +24,12 @@ export default defineConfig({
   srcDir: 'src',
   entrypointsDir: 'entries',
   manifest: {
-    permissions: ["contextMenus", "activeTab", "storage"]
+    permissions: ["contextMenus", "activeTab", "storage"],
+    web_accessible_resources: [
+      {
+        resources: ["bilibiliApiInject.js"],
+        matches: ["*://search.bilibili.com/*"]
+      }
+    ]
   }
 });

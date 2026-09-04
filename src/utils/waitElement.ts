@@ -11,10 +11,10 @@ export default function waitElement(selector: string, timeout = 0): Promise<HTML
       return;
     }
 
-    let observer = new MutationObserver((mutations) => {
+    let observer: MutationObserver | null = new MutationObserver((mutations) => {
       const elem = document.querySelector<HTMLElement>(selector);
       if (elem) {
-        observer.disconnect();
+        observer?.disconnect();
         observer = null;
         resolve(elem);
       }
@@ -27,7 +27,7 @@ export default function waitElement(selector: string, timeout = 0): Promise<HTML
 
     if (timeout > 0) {
       setTimeout(() => {
-        observer.disconnect();
+        observer?.disconnect();
         observer = null;
         reject(new Error(`等待元素 ${selector} 超时`));
       }, timeout);
